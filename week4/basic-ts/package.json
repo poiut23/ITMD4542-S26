@@ -1,13 +1,14 @@
 {
-  "name": "ts-basic",
+  "name": "basic-ts",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc app.ts"
   },
   "dependencies": {
     "typescript": "^5.9.3"

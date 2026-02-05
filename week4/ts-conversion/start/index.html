@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    .section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .section h2 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+    
+    .result {
+      background: #f8f9fa;
+      padding: 10px;
+      border-left: 4px solid #0066cc;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+    
+    .item {
+      padding: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>TypeScript Conversion Demo</h1>
+  
+  <div class="section">
+    <h2>Calculate Total</h2>
+    <div id="calculate-total"></div>
+  </div>
+  
+  <div class="section">
+    <h2>Format Currency</h2>
+    <div id="format-currency"></div>
+  </div>
+  
+  <div class="section">
+    <h2>Get User Info</h2>
+    <div id="user-info"></div>
+  </div>
+  
+  <div class="section">
+    <h2>Process Order</h2>
+    <div id="process-order"></div>
+  </div>
+
+  <script type="module">
+    import { calculateTotal, formatCurrency, getUserInfo, processOrder } from './demo.js';
+    
+    // Test calculateTotal
+    const items = [
+      { name: "Widget", price: 10.99, quantity: 2 },
+      { name: "Gadget", price: 25.50, quantity: 1 }
+    ];
+    const total = calculateTotal(items, 0.08);
+    document.getElementById('calculate-total').innerHTML = `
+      <div class="item">Items: ${items.map(item => `${item.name} ($${item.price} x ${item.quantity})`).join(', ')}</div>
+      <div class="item">Tax Rate: 8%</div>
+      <div class="result">Total: $${total.toFixed(2)}</div>
+    `;
+    
+    // Test formatCurrency
+    const amounts = [100, 1234.56, 0.99];
+    document.getElementById('format-currency').innerHTML = amounts.map(amount => 
+      `<div class="item">${amount} → ${formatCurrency(amount)}</div>`
+    ).join('');
+    
+    // Test getUserInfo
+    const user = {
+      firstName: "Jane",
+      lastName: "Doe",
+      age: 28,
+      email: "jane.doe@example.com"
+    };
+    const userInfo = getUserInfo(user);
+    document.getElementById('user-info').innerHTML = `
+      <div class="item">Input: ${JSON.stringify(user, null, 2).replace(/\n/g, '<br>').replace(/ /g, '&nbsp;')}</div>
+      <div class="result">
+        Full Name: ${userInfo.fullName}<br>
+        Age: ${userInfo.age}<br>
+        Email: ${userInfo.email}
+      </div>
+    `;
+    
+    // Test processOrder
+    const order = {
+      id: "ORD-001",
+      items: items,
+      taxRate: 0.08
+    };
+    const orderResult = processOrder(order);
+    document.getElementById('process-order').innerHTML = `
+      <div class="item">Order ID: ${order.id}</div>
+      <div class="item">Items: ${order.items.length}</div>
+      <div class="result">
+        Order ID: ${orderResult.orderId}<br>
+        Total: $${orderResult.total.toFixed(2)}<br>
+        Formatted: ${orderResult.formattedTotal}
+      </div>
+    `;
+  </script>
+</body>
+</html>
